@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/jquery-1.11.1.js"></script>
+    <script src="~/Scripts/ejq.js"></script>
+    <link href="~/Css/home.css" rel="stylesheet" />
+    @RenderSection("head", false)
+</head>
+<body>
+
+    <div class="jumbotron">
+        <h1>@ViewBag.Title</h1>
+    </div>
+    <div class="menu">
+        <ul>
+            <li>
+                <a href="~/">首页</a>
+            </li>
+            <li>
+                <a href="~/list/index">
+                    增删查改DEMO
+                </a>
+            </li>
+            <li class="clear"></li>
+        </ul>
+    </div>
+    @RenderBody()
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+﻿h1{text-align: center;}
+a { color:cornflowerblue; cursor:pointer}
+a:hover{ color:#ff6a00}
+.category{width: 400px; background: #ccc; height: 200px; float: left; padding: 10px; margin: 20px;}
+.row{padding-top: 62px;}
+.menu{width: 100%; display: block;} .menu li{float: left; list-style-type: none; margin: 10px; font-size: 14px; font-weight: bold; cursor: pointer;} .menu li :first-child{margin-left: 30px;}
+.clear{clear: both;}
+.pagination{text-align: right; margin-right: 10px;}
+.hide{display: none;}
+.window{ width:400px !important; margin:auto; border:1px solid #ccc; padding:20px}

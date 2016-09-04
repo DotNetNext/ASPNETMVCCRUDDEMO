@@ -1,0 +1,71 @@
+﻿@{
+    var viewModel = new
+    {
+        title = Model.ResultInfo,
+        list = Model.ResultInfo2,
+        pageString = Model.ResultInfo3,
+        fidList = Model.ResultInfo4
+    };
+    ViewBag.Title = viewModel.title;
+}
+@using BBS.Infrastructure.ViewModels
+@using BBS.Infrastructure.DbModels
+@using SyntacticSugar
+@model  ResultModel<string, List<dnt_test_topics>, HtmlString, List<dnt_test_forums>>
+@section head{
+    <script src="~/Scripts/list.js"></script>
+}
+
+<div class="row">
+    <input type="text" id="txtTitle" /><input type="button" id="btnSearch" value="搜索" />
+    <input type="button"  id="btnAdd" value="添加"/>
+    <table width="100%">
+        <!--不为null并且count>0-->
+        @if (viewModel.list.IsValuable())
+            {
+            <tr>
+                <th align="left">标题</th>
+                <th align="left">作者</th>
+                <th align="left">时间</th>
+                <th align="left">操作</th>
+            </tr>
+
+            foreach (var item in viewModel.list)
+            {
+                <tr>
+                    <td>@item.title</td>
+                    <td>@item.poster</td>
+                    <td>@item.postdatetime</td>
+                    <td><a onclick="update(@item.tid)">编辑</a> | <a onclick="del(@item.tid)">删除</a></td>
+                </tr>
+            }
+        }
+    </table>
+    <p>
+        @viewModel.pageString
+    </p>
+
+    <form class="window" id="frmInsertAndUpate">
+        <h1 id="title">/添加</h1>
+        <table>
+            <tr>
+                <td>标题</td>
+                <td>
+                    <input name="title" />
+                    <input id="pk" type="hidden" name="tid" />
+                </td>
+            </tr>
+            <tr>
+                <td>分类</td>
+                <td>
+                    @Html.DropDownList("fid", new SelectList(viewModel.fidList, "fid", "name"))
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input id="btnSave" type="button" value="保存" /></td>
+            </tr>
+        </table>
+
+    </form>
+</div>

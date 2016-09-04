@@ -1,0 +1,39 @@
+﻿@{
+    var viewModel = new
+    {
+        title = Model.ResultInfo,
+        list = Model.ResultInfo2
+    };
+    ViewBag.Title = viewModel.title;
+}
+@model ResultModel<string, List<List<V_dnt_test_topics>>>
+@using BBS.Infrastructure.ViewModels
+@using BBS.Infrastructure.DbModels
+@using SyntacticSugar
+
+@section head{
+
+    <link href="~/Css/home.css" rel="stylesheet" />
+}
+
+
+ 
+<div class="row">
+    <!--不为null并且count>0-->
+    @if (viewModel.list.IsValuable())
+    {
+
+        foreach (var topics in viewModel.list)
+        {
+            <div class="category">
+                <!--后台已经判断过非空了-->
+                <h3>@topics.First().typeName</h3>
+                @foreach (var topic in topics)
+                {
+                    <ul><li>@topic.title | @topic.postdatetime</li></ul>
+                }
+            </div>
+        }
+    }
+
+</div>
