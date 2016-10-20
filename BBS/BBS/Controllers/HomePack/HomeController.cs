@@ -13,7 +13,8 @@ namespace BBS.Controllers.HomePack
 {
     public class HomeController : BaseController
     {
-        public HomeController(DbService service) : base(service) {
+        public HomeController(DbService service) : base(service)
+        {
         }
 
         /// <summary>
@@ -24,20 +25,28 @@ namespace BBS.Controllers.HomePack
         {
             var model = new ResultModel<string, List<List<V_dnt_test_topics>>>();
 
-            _service.Command<Outsourcing>((db/*数据服务对象*/, o /*外包服务对象*/) =>
-            {
-                var allTopic = db.Queryable<dnt_test_topics>()
-                .JoinTable<dnt_test_forums>((t, f) => t.fid == f.fid)
-                .Select<V_dnt_test_topics>("t.*,f.name as typeName").ToList(); //获取贴子
+            _service.Command<Outsourcing, KeyValue>((db/*数据服务对象*/, o /*外包服务对象*/, api) =>
+             {
+                 var allTopic = db.Queryable<dnt_test_topics>()
+                 .JoinTable<dnt_test_forums>((t, f) => t.fid == f.fid)
+                 .Select<V_dnt_test_topics>("t.*,f.name as typeName").ToList(); //获取贴子
 
                 //首页title
                 model.ResultInfo = "BBS首页";
 
+                  var xx = api.Get("/Home/GetKV", new { id = 1 });
+
                 //将贴子进行分组处理
                 model.ResultInfo2 = o.ArrangeTopic(allTopic);
-            });
+             });
 
             return View(model);
+        }
+
+        public JsonResult GetKV(int id)
+        {
+
+            return Json(new KeyValue() { Key=id.ToString()},JsonRequestBehavior.AllowGet);
         }
     }
 }

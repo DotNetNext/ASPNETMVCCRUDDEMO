@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RestSharp;
+using SyntacticSugar;
+
 namespace BBS.Infrastructure.Tool
 {
     public class RestApi<T> where T : class, new()
     {
         public T Get(string url, object pars)
         {
-            var type = Method.POST;
+            var type = Method.GET;
             IRestResponse<T> reval = GetApiInfo(url, pars, type);
             return reval.Data;
         }
@@ -35,10 +37,10 @@ namespace BBS.Infrastructure.Tool
 
         private static IRestResponse<T> GetApiInfo(string url, object pars, Method type)
         {
-            var request = new RestRequest("resource/{id}", type);
+            var request = new RestRequest(type);
             if (pars != null)
                 request.AddObject(pars);
-            var client = new RestClient(url);
+            var client = new RestClient(RequestInfo.HttpDomain + url);
             client.CookieContainer = new System.Net.CookieContainer();
             IRestResponse<T> reval = client.Execute<T>(request);
             return reval;
