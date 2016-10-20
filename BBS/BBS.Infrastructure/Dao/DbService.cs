@@ -13,12 +13,12 @@ namespace BBS.Infrastructure.Dao
     /// 因为SqlSugarORM是我开源的一个ORM，对我而言已经是完美的了,没有扩展的必要
     /// 当然这里也可以换成EF等其它ORM,只需要把SqlSugarClient换成DbContext
     /// </summary>
-    public class DbService
+    public class DbService : IDisposable
     {
         private SqlSugarClient _db;
-        public DbService(SugarDao dao)
+        public DbService()
         {
-            _db = dao.DB;
+            _db = DbConfig.GetDbInstance();
         }
 
         /// <summary>
@@ -57,6 +57,15 @@ namespace BBS.Infrastructure.Dao
             FileSugar.AppendText(logPath, "***********{0}{1}***********".ToFormat("开始:", DateTime.Now));
             FileSugar.AppendText(logPath, ex.Message);
             FileSugar.AppendText(logPath, "***********{0}***********\r\n".ToFormat("结束"));
+        }
+
+
+        public void Dispose()
+        {
+            if (_db != null)
+            {
+                _db.Dispose();
+            }
         }
     }
 }

@@ -53,7 +53,7 @@
       <DependentUpon>CreateDbEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Dao\DbService.cs" />
-    <Compile Include="Dao\SugarDao.cs" />
+    <Compile Include="Dao\DbConfig.cs" />
     <Compile Include="DbModels\dnt_test_admingroups.cs" />
     <Compile Include="DbModels\dnt_test_adminvisitlog.cs" />
     <Compile Include="DbModels\dnt_test_advertisements.cs" />
