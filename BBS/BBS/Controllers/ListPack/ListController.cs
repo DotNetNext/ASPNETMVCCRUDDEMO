@@ -13,12 +13,11 @@ namespace BBS.Controllers.ListPack
     /// <summary>
     ///  主要是用来让你了解分层，不要太注重功能实现
     /// </summary>
-    public class ListController : Controller
+    public class ListController : BaseController
     {
-        private DbService _service;
-        public ListController(DbService service)
+        public ListController(DbService service):base(service)
         {
-            _service = service;
+
         }
 
         public ActionResult Index(string title, int pageIndex = 1, int pageSize = 5)

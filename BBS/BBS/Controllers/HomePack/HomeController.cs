@@ -11,12 +11,9 @@ using BBS.Infrastructure.ViewModels;
 
 namespace BBS.Controllers.HomePack
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private DbService _service;
-        public HomeController(DbService service)//ioc主入
-        {
-            _service = service;
+        public HomeController(DbService service) : base(service) {
         }
 
         /// <summary>
@@ -30,8 +27,8 @@ namespace BBS.Controllers.HomePack
             _service.Command<Outsourcing>((db/*数据服务对象*/, o /*外包服务对象*/) =>
             {
                 var allTopic = db.Queryable<dnt_test_topics>()
-                .JoinTable<dnt_test_topics, dnt_test_forums>((t, f) => t.fid == f.fid)
-                .Select<dnt_test_topics, V_dnt_test_topics>("t.*,f.name as typeName").ToList(); //获取贴子
+                .JoinTable<dnt_test_forums>((t, f) => t.fid == f.fid)
+                .Select<V_dnt_test_topics>("t.*,f.name as typeName").ToList(); //获取贴子
 
                 //首页title
                 model.ResultInfo = "BBS首页";
