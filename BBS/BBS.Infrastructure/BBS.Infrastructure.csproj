@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SqlSugar, Version=2.7.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\sqlSugar.2.7.0.1\lib\net40\SqlSugar.dll</HintPath>
+    <Reference Include="SqlSugar, Version=3.1.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\sqlSugar.3.1.0.9\lib\net40\SqlSugar.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SyntacticSugar">
@@ -119,7 +119,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\V_dnt_test_topics.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="DbModels\CreateDbEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
