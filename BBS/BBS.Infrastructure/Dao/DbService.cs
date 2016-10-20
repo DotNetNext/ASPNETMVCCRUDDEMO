@@ -43,6 +43,56 @@ namespace BBS.Infrastructure.Dao
                 throw ex;
             }
         }
+
+        /// <summary>
+        ///服务命令
+        /// </summary>
+        /// <typeparam name="Outsourcing">外包服务类型</typeparam>
+        /// <param name="func"></param>
+        public void Command<Outsourcing, Api1>(Action<SqlSugarClient, Outsourcing, Tool.RestApi<Api1>> func) where Outsourcing : class, new() where Api1 : class, new()
+        {
+            try
+            {
+                var o = new Outsourcing();
+                var api1 = new Tool.RestApi<Api1>();
+                func(_db, o,api1);
+                o = null;//及时释放对象 
+                //_db 会在http请求结束前执行 dispose 
+            }
+            catch (Exception ex)
+            {
+                //在这里可以处理所有controller的异常
+                //获错误写入日志
+                WriteExMessage(ex);
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        ///服务命令
+        /// </summary>
+        /// <typeparam name="Outsourcing">外包服务类型</typeparam>
+        /// <param name="func"></param>
+        public void Command<Outsourcing, Api1,Api2>(Action<SqlSugarClient, Outsourcing, Tool.RestApi<Api1>> func,Tool.RestApi<Api2>> func) where Outsourcing : class, new() where Api1 : class, new() where Api2 : class, new()
+        {
+            try
+            {
+                var o = new Outsourcing();
+                var api1 = new Tool.RestApi<Api1>();
+                func(_db, o, api1,Api2);
+                o = null;//及时释放对象 
+                //_db 会在http请求结束前执行 dispose 
+            }
+            catch (Exception ex)
+            {
+                //在这里可以处理所有controller的异常
+                //获错误写入日志
+                WriteExMessage(ex);
+                throw ex;
+            }
+        }
+
+
         /// <summary>
         /// 将错误信息写入日志
         /// </summary>
