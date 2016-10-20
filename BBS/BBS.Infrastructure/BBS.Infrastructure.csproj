@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dao\CreateDbEntities.cs">
+    <Compile Include="DbModels\CreateDbEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CreateDbEntities.tt</DependentUpon>
@@ -121,7 +121,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Dao\CreateDbEntities.tt">
+    <Content Include="DbModels\CreateDbEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CreateDbEntities.cs</LastGenOutput>
     </Content>
