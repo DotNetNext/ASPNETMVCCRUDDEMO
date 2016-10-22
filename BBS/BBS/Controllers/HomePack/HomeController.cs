@@ -25,7 +25,7 @@ namespace BBS.Controllers.HomePack
         {
             var model = new ResultModel<string, List<List<V_dnt_test_topics>>>();
 
-            _service.Command<Outsourcing, KeyValue>((db/*数据服务对象*/, o /*外包服务对象*/, api) =>
+            _service.Command<Outsourcing, KeyValue>((db/*数据服务对象*/, o /*外包服务对象*/, api/*调用其它API*/) =>
              {
                  var allTopic = db.Queryable<dnt_test_topics>()
                  .JoinTable<dnt_test_forums>((t, f) => t.fid == f.fid)
@@ -34,7 +34,10 @@ namespace BBS.Controllers.HomePack
                 //首页title
                 model.ResultInfo = "BBS首页";
 
-                  var xx = api.Get("/Home/GetKV", new { id = 1 });
+
+                //可以方便的调用其它ACTION
+                var getApi = api.Get("/Home/GetCommonKVList", new { id = 1 });
+
 
                 //将贴子进行分组处理
                 model.ResultInfo2 = o.ArrangeTopic(allTopic);
@@ -43,10 +46,15 @@ namespace BBS.Controllers.HomePack
             return View(model);
         }
 
-        public JsonResult GetKV(int id)
+        /// <summary>
+        /// 公共接口
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public JsonResult GetCommonKVList(int id)
         {
 
-            return Json(new KeyValue() { Key=id.ToString()},JsonRequestBehavior.AllowGet);
+            return Json(new KeyValue() { Key=id.ToString(),Value="我是公共接口"},JsonRequestBehavior.AllowGet);
         }
     }
 }
